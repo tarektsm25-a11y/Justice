@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ইনসাফ | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .bg-animation {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-animation .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .bg-animation .circle:nth-child(1) {
+      width: 400px; height: 400px;
+      background: var(--primary);
+      top: -100px; left: -100px;
+      animation-delay: 0s;
+    }
+
+    .bg-animation .circle:nth-child(2) {
+      width: 300px; height: 300px;
+      background: var(--secondary);
+      bottom: -50px; right: -50px;
+      animation-delay: -5s;
+    }
+
+    .bg-animation .circle:nth-child(3) {
+      width: 200px; height: 200px;
+      background: var(--accent);
+      top: 50%; left: 50%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 6rem 2rem 4rem;
+      display: none;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: calc(100vh - 6rem);
+    }
+
+    .hero-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 60px rgba(99, 102, 241, 0.3);
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 60px rgba(99, 102, 241, 0.3); }
+      50% { box-shadow: 0 0 80px rgba(99, 102, 241, 0.5); }
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero .tagline {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-card .label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .skill-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .skill-percent {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .skill-bar {
+      height: 8px;
+      background: var(--bg);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      transition: width 1s ease;
+      width: 0;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .project-img {
+      height: 180px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .project-info {
+      padding: 1.5rem;
+    }
+
+    .project-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-info p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.75rem;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-item .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid, .contact-container {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-animation">
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+</div>
+
+<nav>
+  <div class="logo">Portfolio</div>
+  <ul class="nav-links">
+    <li><a onclick="showSection('home')" class="active" id="nav-home">হোম</a></li>
+    <li><a onclick="showSection('about')" id="nav-about">আমার সম্পর্কে</a></li>
+    <li><a onclick="showSection('skills')" id="nav-skills">দক্ষতা</a></li>
+    <li><a onclick="showSection('projects')" id="nav-projects">প্রজেক্ট</a></li>
+    <li><a onclick="showSection('contact')" id="nav-contact">যোগাযোগ</a></li>
+  </ul>
+</nav>
+
+<!-- Home Section -->
+<div class="section active" id="home">
+  <div class="hero">
+    <div class="hero-avatar">👨‍💻</div>
+    <h1>হ্যালো, আমি <span style="color: var(--primary);">আপনার নাম</span></h1>
+    <p class="subtitle">ওয়েব ডেভেলপার | ডিজাইনার | ক্রিয়েটর</p>
+    <p class="tagline">আমি আকর্ষণীয় ওয়েব অভিজ্ঞতা তৈরি করতে ভালোবাসি। আধুনিক প্রযুক্তি ব্যবহার করে ব্যবহারকারী-কেন্দ্রিক সল্যুশন ডেভেলপ করাই আমার লক্ষ্য।</p>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="showSection('projects')">আমার কাজ দেখুন</button>
+      <button class="btn btn-outline" onclick="showSection('contact')">যোগাযোগ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="section" id="about">
+  <h2 class="section-title">আমার সম্পর্কে</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>আমি একজন উৎসাহী ওয়েব ডেভেলপার যিনি সুন্দর এবং ফাংশনাল ওয়েবসাইট তৈরি করতে ভালোবাসেন। আমার কাজের মূল মন্ত্র হলো - সহজ, দ্রুত এবং আকর্ষণীয় ডিজাইন।</p>
+      <p>প্রযুক্তির প্রতি আমার ভালোবাসা আমাকে নতুন নতুন জিনিস শিখতে এবং তা প্রয়োগ করতে উৎসাহিত করে। আমি বিশ্বাস করি ভালো ডিজাইন শুধু দেখতে সুন্দর নয়, বরং ব্যবহারকারীর জীবন সহজ করে।</p>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="number">৫+</div>
+          <div class="label">বছরের অভিজ্ঞতা</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">৫০+</div>
+          <div class="label">প্রজেক্ট সম্পন্ন</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">৩০+</div>
+          <div class="label">খুশি ক্লায়েন্ট</div>
+        </div>
+      </div>
+    </div>
+    <div style="background: var(--bg-card); padding: 2rem; border-radius: 20px; border: 1px solid var(--border);">
+      <h3 style="margin-bottom: 1.5rem; color: var(--primary);">শিক্ষাগত যোগ্যতা</h3>
+      <div style="margin-bottom: 1.5rem;">
+        <div style="font-weight: 600; margin-bottom: 0.25rem;">কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং</div>
+        <div style="color: var(--text-muted); font-size: 0.9rem;">ঢাকা বিশ্ববিদ্যালয় | ২০১৮ - ২০২২</div>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <div style="font-weight: 600; margin-bottom: 0.25rem;">ওয়েব ডেভেলপমেন্ট সার্টিফিকেট</div>
+        <div style="color: var(--text-muted); font-size: 0.9rem;">freeCodeCamp | ২০২১</div>
+      </div>
+      <h3 style="margin: 2rem 0 1.5rem; color: var(--primary);">অভিজ্ঞতা</h3>
+      <div>
+        <div style="font-weight: 600; margin-bottom: 0.25rem;">সিনিয়র ফ্রন্টএন্ড ডেভেলপার</div>
+        <div style="color: var(--text-muted); font-size: 0.9rem;">Tech Solutions Ltd. | ২০২২ - বর্তমান</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Skills Section -->
+<div class="section" id="skills">
+  <h2 class="section-title">আমার দক্ষতা</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">HTML & CSS</span>
+        <span class="skill-percent">95%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">JavaScript</span>
+        <span class="skill-percent">90%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">React.js</span>
+        <span class="skill-percent">85%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">Node.js</span>
+        <span class="skill-percent">80%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">Python</span>
+        <span class="skill-percent">75%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" data-width="75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">UI/UX ডিজাইন</span>
+        <span class="skill-percent">88%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" data-width="88%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Projects Section -->
+<div class="section" id="projects">
+  <h2 class="section-title">আমার প্রজেক্ট</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-img">🛒</div>
+      <div class="project-info">
+        <h3>ই-কমার্স প্ল্যাটফর্ম</h3>
+        <p>একটি সম্পূর্ণ ই-কমার্স ওয়েবসাইট যেখানে ব্যবহারকারীরা পণ্য ব্রাউজ, কার্টে যোগ এবং অর্ডার করতে পারবেন।</p>
+        <div class="project-tags">
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MongoDB</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img">📊</div>
+      <div class="project-info">
+        <h3>ড্যাশবোর্ড অ্যাপ্লিকেশন</h3>
+        <p>ডেটা ভিজ্যুয়ালাইজেশন ড্যাশবোর্ড যা রিয়েল-টাইম চার্ট এবং রিপোর্ট প্রদর্শন করে।</p>
+        <div class="project-tags">
+          <span class="tag">Vue.js</span>
+          <span class="tag">D3.js</span>
+          <span class="tag">Firebase</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img">📝</div>
+      <div class="project-info">
+        <h3>ব্লগিং প্ল্যাটফর্ম</h3>
+        <p>একটি মিনিমালিস্ট ব্লগিং প্ল্যাটফর্ম যেখানে লেখকরা তাদের আর্টিকেল প্রকাশ করতে পারেন।</p>
+        <div class="project-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img">🎵</div>
+      <div class="project-info">
+        <h3>মিউজিক স্ট্রিমিং অ্যাপ</h3>
+        <p>আধুনিক UI সহ একটি মিউজিক প্লেয়ার যা Spotify-এর মতো অভিজ্ঞতা দেয়।</p>
+        <div class="project-tags">
+          <span class="tag">React Native</span>
+          <span class="tag">Redux</span>
+          <span class="tag">API</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img">🏥</div>
+      <div class="project-info">
+        <h3>হাসপাতাল ম্যানেজমেন্ট সিস্টেম</h3>
+        <p>হাসপাতালের রোগী, ডাক্তার এবং অ্যাপয়েন্টমেন্ট ম্যানেজমেন্ট সিস্টেম।</p>
+        <div class="project-tags">
+          <span class="tag">Django</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-img">🌤️</div>
+      <div class="project-info">
+        <h3>ওয়েদার অ্যাপ</h3>
+        <p>রিয়েল-টাইম আবহাওয়া তথ্য এবং পূর্বাভাস প্রদর্শনকারী মোবাইল-ফ্রেন্ডলি অ্যাপ।</p>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">API</span>
+          <span class="tag">PWA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="section" id="contact">
+  <h2 class="section-title">যোগাযোগ করুন</h2>
+  <div class="contact-container">
+    <div class="contact-info">
+      <h3>আমার সাথে কথা বলুন</h3>
+      <p>আপনার কোনো প্রজেক্ট বা আইডিয়া থাকলে আমার সাথে যোগাযোগ করুন। আমি নতুন সুযোগ এবং সহযোগিতার জন্য সবসময় উন্মুখ।</p>
+      <div class="contact-item">
+        <div class="icon">📧</div>
+        <div>
+          <div style="font-weight: 600;">ইমেইল</div>
+          <div style="color: var(--text-muted);">your.email@example.com</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="icon">📱</div>
+        <div>
+          <div style="font-weight: 600;">ফোন</div>
+          <div style="color: var(--text-muted);">+৮৮০ ১৭XX-XXXXXX</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="icon">📍</div>
+        <div>
+          <div style="font-weight: 600;">ঠিকানা</div>
+          <div style="color: var(--text-muted);">ঢাকা, বাংলাদেশ</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3 style="margin-bottom: 1.5rem;">মেসেজ পাঠান</h3>
+      <div class="form-group">
+        <label>আপনার নাম</label>
+        <input type="text" placeholder="আপনার নাম লিখুন">
+      </div>
+      <div class="form-group">
+        <label>ইমেইল</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>বিষয়</label>
+        <input type="text" placeholder="বিষয় লিখুন">
+      </div>
+      <div class="form-group">
+        <label>বার্তা</label>
+        <textarea placeholder="আপনার বার্তা লিখুন..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width: 100%;" onclick="alert('ধন্যবাদ! আপনার বার্তা পাঠানো হয়েছে।')">পাঠান</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© ২০২৫ আপনার নাম. সর্বস্বত্ব সংরক্ষিত। ❤️ ইনসাফ</p>
+</footer>
+
+<script>
+  function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('nav-' + sectionId).classList.add('active');
+    if (sectionId === 'skills') {
+      setTimeout(() => {
+        document.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-width');
+        });
+      }, 100);
+    }
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener('load', () => {
+    if (document.getElementById('skills').classList.contains('active')) {
+      document.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
